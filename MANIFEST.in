@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include sunotification *.css
+recursive-include sunotification *.csv
+recursive-include sunotification *.html
+recursive-include sunotification *.ico
+recursive-include sunotification *.js
+recursive-include sunotification *.json
+recursive-include sunotification *.md
+recursive-include sunotification *.png
+recursive-include sunotification *.py
+recursive-include sunotification *.svg
+recursive-include sunotification *.txt
+recursive-exclude sunotification *.pyc

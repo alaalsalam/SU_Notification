@@ -1,0 +1,355 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Prompt",
+ "creation": "2024-07-02 16:20:47.707826",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "System",
+ "engine": "InnoDB",
+ "field_order": [
+  "column_break_2",
+  "enabled",
+  "col_break_1",
+  "section_break_9",
+  "channel_section",
+  "email",
+  "sender",
+  "sender_email",
+  "column_break_6",
+  "system",
+  "column_break_lmmga",
+  "whatsapp",
+  "column_break_zdj97",
+  "telegram",
+  "column_break_ebpje",
+  "sms",
+  "section_break_snhrq",
+  "telegram_chat_id",
+  "column_break_5",
+  "choose_company",
+  "choose_department",
+  "recipients",
+  "message_sb",
+  "use_template",
+  "subject",
+  "message_template",
+  "message",
+  "column_break_0pxb2",
+  "when_to_send",
+  "event_frequency",
+  "choosedate_and_time",
+  "document_type",
+  "event",
+  "reference_date",
+  "days_before_or_after",
+  "trigger_method",
+  "value_changed",
+  "condition",
+  "html_7",
+  "cron_format",
+  "section_break_ecqfz",
+  "column_break_25",
+  "attach_print",
+  "print_format"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "col_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "channel_section",
+   "fieldtype": "Section Break",
+   "label": "Channel"
+  },
+  {
+   "default": "0",
+   "fieldname": "email",
+   "fieldtype": "Check",
+   "label": "Email"
+  },
+  {
+   "depends_on": "eval: doc.email",
+   "fieldname": "sender",
+   "fieldtype": "Link",
+   "label": "Sender",
+   "mandatory_depends_on": "eval: doc.email",
+   "options": "Email Account"
+  },
+  {
+   "fieldname": "sender_email",
+   "fieldtype": "Data",
+   "label": "Sender Email",
+   "options": "Email",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "system",
+   "fieldtype": "Check",
+   "label": "System"
+  },
+  {
+   "depends_on": "eval:doc.channel !=\"Slack\"",
+   "fieldname": "column_break_5",
+   "fieldtype": "Section Break",
+   "label": "Recipientsb"
+  },
+  {
+   "fieldname": "recipients",
+   "fieldtype": "Table",
+   "label": "Recipients",
+   "options": "Notification Recipient Table"
+  },
+  {
+   "fieldname": "message_sb",
+   "fieldtype": "Section Break",
+   "label": "Message Details"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subject",
+   "reqd": 1
+  },
+  {
+   "default": "Add your message here",
+   "fetch_from": "message_template.template_message",
+   "fetch_if_empty": 1,
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "ignore_xss_filter": 1,
+   "label": "Message"
+  },
+  {
+   "fieldname": "when_to_send",
+   "fieldtype": "Select",
+   "label": " When To Send",
+   "options": "Now\nScheduler\nRecurring\nEvent",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.when_to_send == \"Recurring\"",
+   "fieldname": "event_frequency",
+   "fieldtype": "Select",
+   "label": "Event Frequency",
+   "mandatory_depends_on": "eval:doc.when_to_send == \"Recurring\"",
+   "options": "All\nHourly\nDaily\nWeekly\nMonthly\nYearly\nHourly Long\nDaily Long\nWeekly Long\nMonthly Long\nCron"
+  },
+  {
+   "depends_on": "eval:doc.when_to_send == \"Event\"",
+   "fieldname": "document_type",
+   "fieldtype": "Link",
+   "label": "Document Type",
+   "mandatory_depends_on": "eval:doc.when_to_send == \"Event\"",
+   "options": "DocType"
+  },
+  {
+   "depends_on": "eval:doc.when_to_send == \"Event\"",
+   "fieldname": "condition",
+   "fieldtype": "Code",
+   "ignore_xss_filter": 1,
+   "in_list_view": 1,
+   "label": "Condition"
+  },
+  {
+   "depends_on": "eval:doc.when_to_send == \"Event\"",
+   "fieldname": "html_7",
+   "fieldtype": "HTML",
+   "options": "<p><strong>Condition Examples:</strong></p>\n<pre>doc.status==\"Open\"<br>doc.due_date==nowdate()<br>doc.total &gt; 40000\n</pre>\n"
+  },
+  {
+   "depends_on": "eval:doc.event_frequency==='Cron' && doc.when_to_send==='Recurring'",
+   "fieldname": "cron_format",
+   "fieldtype": "Data",
+   "label": "Cron Format"
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "attach_print",
+   "fieldname": "column_break_25",
+   "fieldtype": "Section Break",
+   "label": "Print Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "attach_print",
+   "fieldtype": "Check",
+   "label": "Attach Print"
+  },
+  {
+   "depends_on": "attach_print",
+   "fieldname": "print_format",
+   "fieldtype": "Link",
+   "label": "Print Format",
+   "options": "Print Format"
+  },
+  {
+   "fieldname": "column_break_lmmga",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "To use Whatsapp Channel, initialize <a href=\"/app/whatsapp-settings\">Whatsapp Settings</a>.",
+   "fieldname": "whatsapp",
+   "fieldtype": "Check",
+   "label": "WhatsApp"
+  },
+  {
+   "fieldname": "column_break_zdj97",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "To use Telegram Channel, initialize <a href=\"/app/telegram-settings\">Telegram Settings</a>.`",
+   "fieldname": "telegram",
+   "fieldtype": "Check",
+   "label": "Telegram"
+  },
+  {
+   "fieldname": "column_break_ebpje",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "To use SMS Channel, initialize <a href=\"/app/sms-settings\">SMS Settings</a>.",
+   "fieldname": "sms",
+   "fieldtype": "Check",
+   "label": "SMS"
+  },
+  {
+   "depends_on": "telegram",
+   "fieldname": "telegram_chat_id",
+   "fieldtype": "Table MultiSelect",
+   "label": "Telegram Chat Id(Bot Name)",
+   "options": "Telegram Bot"
+  },
+  {
+   "fieldname": "section_break_snhrq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_ecqfz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.use_template == 1",
+   "fieldname": "message_template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Message Template",
+   "options": "Message_Template"
+  },
+  {
+   "fieldname": "column_break_0pxb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.when_to_send == \"Scheduler\"",
+   "fieldname": "choosedate_and_time",
+   "fieldtype": "Datetime",
+   "label": "Choose(Date and Time)"
+  },
+  {
+   "depends_on": "eval:doc.event==\"Days After\" || doc.event==\"Days Before\"",
+   "description": "Send alert if date matches this field's value",
+   "fieldname": "reference_date",
+   "fieldtype": "Select",
+   "label": "Reference Date"
+  },
+  {
+   "depends_on": "eval:doc.event==\"Days After\" || doc.event==\"Days Before\"",
+   "description": "Send days before or after the reference date",
+   "fieldname": "days_before_or_after",
+   "fieldtype": "Int",
+   "label": "Days Before or After"
+  },
+  {
+   "depends_on": "eval:doc.event==\"Value Change\"",
+   "description": "Send alert if this field's value changes",
+   "fieldname": "value_changed",
+   "fieldtype": "Select",
+   "label": "Value Changed"
+  },
+  {
+   "depends_on": "eval:doc.event=='Method'",
+   "description": "Trigger on valid methods like \"before_insert\", \"after_update\", etc (will depend on the DocType selected)",
+   "fieldname": "trigger_method",
+   "fieldtype": "Data",
+   "label": "Trigger Method"
+  },
+  {
+   "depends_on": "eval:doc.when_to_send == \"Event\"",
+   "fieldname": "event",
+   "fieldtype": "Select",
+   "label": "Send Alert On",
+   "mandatory_depends_on": "eval:doc.when_to_send == \"Event\"",
+   "options": "\nNew\nSave\nSubmit\nCancel\nDays After\nDays Before\nValue Change\nMethod\nCustom"
+  },
+  {
+   "fieldname": "choose_department",
+   "fieldtype": "Select",
+   "label": "Choose department "
+  },
+  {
+   "default": "0",
+   "fieldname": "use_template",
+   "fieldtype": "Check",
+   "label": "Use Template "
+  },
+  {
+   "fieldname": "choose_company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Choose Company",
+   "options": "Company",
+   "reqd": 1
+  }
+ ],
+ "icon": "fa fa-envelope",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-07-20 11:19:43.209509",
+ "modified_by": "Administrator",
+ "module": "sunotification",
+ "name": "SU_Notification",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "subject",
+ "track_changes": 1
+}
