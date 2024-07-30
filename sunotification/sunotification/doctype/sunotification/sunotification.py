@@ -36,7 +36,7 @@
 
 from redis import Redis
 from rq import Queue
-from rq_scheduler import Scheduler
+# from rq_scheduler import Scheduler
 from datetime import datetime
 
 import json
@@ -54,25 +54,25 @@ from frappe.utils import add_to_date, cast, is_html, nowdate, validate_email_add
 from frappe.utils.jinja import validate_template
 from frappe.utils.safe_exec import get_safe_globals
 
-class SU_Notification(Document):
+class SUNotification(Document):
 	def validate(self):
 
 		
 		if(self.when_to_send == "Scheduler"):
-			frappe.msgprint("Scheduler.........")	
-			# self.schedulingDate()
+			pass
+				# self.schedulingDate()
 		if(self.when_to_send == "Now"):
-			frappe.msgprint("Now.........^_^")
+			pass
 			self.send()	
 		if(self.when_to_send == "Event"):
-			frappe.msgprint("Event.........^_^")
+			pass
 			# self.sendevent()	
 		if(self.when_to_send == "Recurring"):
-			frappe.msgprint("Recurring......^_^")
+			pass
 			self.scheduling()		
 
 	def sendevent(self):
-					frappe.msgprint("Event ???????")
+					pass
 				
 					notification = frappe.new_doc("Notification")
 					notification.name = self.name
@@ -84,7 +84,7 @@ class SU_Notification(Document):
 					notification.enabled = self.enabled
 					# notification.is_standard = self.is_standard
 					notification.insert()
-					frappe.msgprint("done save EVENT")
+					pass
 
 
 	def autoname(self):
@@ -99,13 +99,13 @@ class SU_Notification(Document):
 		# queue = Queue('bar', connection=Redis())
 		# scheduler = Scheduler(queue=queue, connection=queue.connection)
 
-		frappe.msgprint("scheduling......")
+		# frappe.msgprint("scheduling......")
 		# scheduler = Scheduler('foo', queue_class="rq.Queue")
 		scheduler.enqueue_at(datetime(2024, 6, 2, 7, 21), self.send) # Date time should be in UTC
 
 		# scheduler = Scheduler(connection=Redis()) # Get a scheduler for the "default" queue
 		# scheduler.enqueue_at(datetime(2024, 6, 2, 6, 20), self.send) # Date time should be in UTC
-		frappe.msgprint("scheduler after 	")
+		# frappe.msgprint("scheduler after 	")
 	def send(self):
 		
 		
@@ -124,32 +124,33 @@ class SU_Notification(Document):
 		try:
 			
 			if self.system :
-				frappe.msgprint("Sendigm Notification")
+				# frappe.msgprint("Sendigm Notification")
 				self.create_system_notification(doc, context)
 
 			if self.email :
-				frappe.msgprint("send email ok ????")
+				# frappe.msgprint("send email ok ????")
 				self.send_an_email(doc, context)
 
 
 			if self.telegram :
-				frappe.msgprint("send telegram..........")
+				# frappe.msgprint("send telegram..........")
 				self.send_telegram(doc)
 
 			if self.whatsapp :
-				frappe.msgprint("send whatsapp..........")
+				# frappe.msgprint("send whatsapp..........")
 				self.send_whatsapp()
 				
 
 
 		except Exception:
-			self.log_error("Failed to send Notification")
+			pass
+			# self.log_error("Failed to send Notification")
 
 	
 	def scheduling(self):
 
 		code2=f"""
-doc = frappe.get_doc("SU_Notification","{self.name}")
+doc = frappe.get_doc("SUNotification","{self.name}")
 doc.send()
 			"""
 		
@@ -267,7 +268,7 @@ doc.send()
 
 	def send_telegram(self, doc):
 		# for number in self.numbers_of_recipients:
-		frappe.msgprint("xxxxxxxxxxxxxxxxx")
+		# frappe.msgprint("xxxxxxxxxxxxxxxxx")
 		doc = frappe.get_doc({
 			'doctype':'Telegram Notification',
 			'subject':self.subject,
@@ -278,11 +279,11 @@ doc.send()
 			'evevt':self.event,
 				})
 		doc.insert()
-		frappe.msgprint("Doneeeeeeeeeeeeee")
+		# frappe.msgprint("Doneeeeeeeeeeeeee")
 
 
 	def send_whatsapp(self):
-		frappe.msgprint("aaaaaaaaaa send_whatsapp send_whatsapp .........")
+		# frappe.msgprint("aaaaaaaaaa send_whatsapp send_whatsapp .........")
 
 		numbers = []
 		for recipient in self.recipients:
@@ -290,8 +291,8 @@ doc.send()
 			doc = frappe.get_doc({
 			'doctype':'WhatsApp Message',
 			'label':self.subject,
-			'name':recipient.mobile, 
-		    'to': "+967777433779", 
+			'name':recipient.name1, 
+		    'to': recipient.mobile, 
 		    'message': self.message,
 		    'content_type':'text'
 			})

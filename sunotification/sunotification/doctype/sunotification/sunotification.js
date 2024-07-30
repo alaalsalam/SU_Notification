@@ -129,7 +129,7 @@
 // 	},
 // };
 
-frappe.ui.form.on("SU_Notification", {
+frappe.ui.form.on("SUNotification", {
 	onload: async function (frm) {
 		let  departments = await frappe.db.get_list("Department");
 		let all_departments=[];

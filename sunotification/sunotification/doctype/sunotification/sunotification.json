@@ -11,7 +11,6 @@
   "column_break_2",
   "enabled",
   "col_break_1",
-  "section_break_9",
   "channel_section",
   "email",
   "sender",
@@ -48,7 +47,6 @@
   "condition",
   "html_7",
   "cron_format",
-  "section_break_ecqfz",
   "column_break_25",
   "attach_print",
   "print_format"
@@ -67,10 +65,6 @@
   {
    "fieldname": "col_break_1",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_9",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "channel_section",
@@ -112,7 +106,7 @@
    "depends_on": "eval:doc.channel !=\"Slack\"",
    "fieldname": "column_break_5",
    "fieldtype": "Section Break",
-   "label": "Recipientsb"
+   "label": "Recipients"
   },
   {
    "fieldname": "recipients",
@@ -241,15 +235,11 @@
    "depends_on": "telegram",
    "fieldname": "telegram_chat_id",
    "fieldtype": "Table MultiSelect",
-   "label": "Telegram Chat Id(Bot Name)",
+   "label": "Telegram Chat Id",
    "options": "Telegram Bot"
   },
   {
    "fieldname": "section_break_snhrq",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "section_break_ecqfz",
    "fieldtype": "Section Break"
   },
   {
@@ -309,7 +299,7 @@
   {
    "fieldname": "choose_department",
    "fieldtype": "Select",
-   "label": "Choose department "
+   "label": "department "
   },
   {
    "default": "0",
@@ -321,7 +311,7 @@
    "fieldname": "choose_company",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Choose Company",
+   "label": " Company",
    "options": "Company",
    "reqd": 1
   }
@@ -329,10 +319,10 @@
  "icon": "fa fa-envelope",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-20 11:19:43.209509",
+ "modified": "2024-07-28 22:41:36.427130",
  "modified_by": "Administrator",
  "module": "sunotification",
- "name": "SU_Notification",
+ "name": "SUNotification",
  "naming_rule": "Set by user",
  "owner": "Administrator",
  "permissions": [
